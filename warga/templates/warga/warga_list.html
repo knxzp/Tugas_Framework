@@ -5,12 +5,22 @@
 </head>
 <body>
     <h1>Daftar Warga</h1>
+    <a href="{% url 'warga-tambah' %}">Tambah Warga Baru</a>
+    <hr>
+    
+    {% if object_list %}
     <ul>
         {% for warga in object_list %}
             <li>{{ warga.nama_lengkap }} - NIK: {{ warga.nik }}</li>
         {% empty %}
             <li>Belum ada data warga yang terdaftar.</li>
         {% endfor %}
+    </ul>
+    {% elif object %}
+        <h2>Detail Warga</h2>
+        <p><strong>Nama Lengkap:</strong> {{ object.nama_lengkap }}</p>
+        <p><strong>NIK:</strong> {{ object.nik }}</p>
+
         <hr>
         <h2>Daftar Pengaduan oleh {{ object.nama_lengkap }}</h2>
 
@@ -23,6 +33,9 @@
             {% empty %}
                 <li>Warga ini belum pernah membuat pengaduan.</li>
             {% endfor %}
+             </ul>
+             <a href="{% url 'warga-list' %}">← Kembali ke Daftar Warga</a>
+           {% endif %}
         </ul>
     </ul>
 </body>
